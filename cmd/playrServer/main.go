@@ -5,9 +5,12 @@ import (
 	"net/http"
 
 	"playr-server/internal/routes"
+	"playr-server/pkg/supabase"
 )
 
 func main() {
+
+	supabase.Init()
 	router := routes.NewRouter()
 
 	port := 8000

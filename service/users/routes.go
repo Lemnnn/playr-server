@@ -14,7 +14,7 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) AuthRoutes(router *mux.Router) {
+func (h *Handler) UserRoutes(router *mux.Router) {
 	fmt.Print(h)
 
 	router.HandleFunc("/login", h.handleLogin).Methods("POST")

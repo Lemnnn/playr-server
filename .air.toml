@@ -1,0 +1,17 @@
+# Config file for Air
+[build]
+  bin = "main"            # Binary name
+  cmd = "go build -o main cmd/main.go" # Build command
+  exclude_dir = ["tmp"]   # Directories to exclude
+  include_ext = ["go"]    # Files to include
+  exclude_ext = ["md"]    # Files to exclude
+  delay = 1000            # Delay in ms before rebuilding
+  poll = true             # Windows bs or something idk
+
+[log]
+  level = "debug"         # Log level (debug, info, warn, error)
+
+[watch]
+  dirs = ["./"]           # Directories to watch
+  extensions = ["go"]     # File extensions to watch
+  ignored = ["tmp"]       # Ignored directories

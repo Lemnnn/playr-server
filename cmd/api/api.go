@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"playr-server/service/auth"
 	"playr-server/service/users"
 
 	"github.com/gorilla/mux"
@@ -26,8 +27,12 @@ func (s *APIServer) Run() error {
 	subrouter := router.PathPrefix("/api/v1").Subrouter()
 
 	userHandler := users.NewHandler()
-	userHandler.AuthRoutes(subrouter)
+	userHandler.UserRoutes(subrouter)
 
-	log.Println("Listening on", s.addr)
+	authStore := auth.NewStore(s.db)
+	authHandler := auth.NewHandler(authStore)
+	authHandler.AuthRoutes(subrouter)
+
+	log.Println("Listening", s.addr)
 	return http.ListenAndServe(s.addr, router)
 }

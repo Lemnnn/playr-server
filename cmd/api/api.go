@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"playr-server/service/auth"
+	"playr-server/service/liked_songs"
+	"playr-server/service/songs"
 	"playr-server/service/users"
 
 	"github.com/gorilla/mux"
@@ -32,6 +34,14 @@ func (s *APIServer) Run() error {
 	authStore := auth.NewStore(s.db)
 	authHandler := auth.NewHandler(authStore)
 	authHandler.AuthRoutes(subrouter)
+
+	songsStore := songs.NewStore(s.db)
+	songHandler := songs.NewHandler(songsStore)
+	songHandler.SongsRoutes(subrouter)
+
+	likedSongsStore := liked_songs.NewStore(s.db)
+	likeHandler := liked_songs.NewHandler(likedSongsStore)
+	likeHandler.LikedRoutes(subrouter)
 
 	log.Println("Listening", s.addr)
 	return http.ListenAndServe(s.addr, router)
